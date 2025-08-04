@@ -55,7 +55,7 @@ public class ChromaService {
 
         if (response.getStatusCode() == HttpStatus.OK) {
             try {
-                // Parse JSON response
+                 
                 ObjectMapper mapper = new ObjectMapper();
                 JsonNode root = mapper.readTree(response.getBody());
                 JsonNode titlesNode = root.get("titles");

@@ -26,11 +26,11 @@ public class UserService {
         User existingUser = userRepository.findByEmail(email);
 
         if (existingUser == null) {
-            return null; // Email not found
+            return null;  
         }
 
         if (!existingUser.getPassword().equals(password)) {
-            return null; // Password incorrect
+            return null;  
         }
 
         return jwtUtil.generateToken(email, 1000 * 60 * 60 * 12);

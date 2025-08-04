@@ -30,10 +30,10 @@ public class ChatService {
 
         RestTemplate restTemplate = new RestTemplate();
 
-        // Normalize email to lowercase for consistent filtering
+         
         String normalizedEmail = email.toLowerCase();
 
-        // Prepare search payload
+         
         Map<String, Object> searchPayload = new HashMap<>();
         searchPayload.put("embedding", embedding);
         searchPayload.put("email", normalizedEmail);
@@ -47,7 +47,7 @@ public class ChatService {
         HttpEntity<Map<String, Object>> searchRequest = new HttpEntity<>(searchPayload, headers);
         ResponseEntity<Map> searchResponse = restTemplate.postForEntity(FLASK_SEARCH_URL, searchRequest, Map.class);
 
-        // Extract matches (documents) from search response
+        
         List<String> matches = (List<String>) ((Map) searchResponse.getBody()).get("matches");
         String context = String.join("\n", matches);
 
@@ -97,16 +97,16 @@ public class ChatService {
         String context;
 
         if (!allPdf) {
-            // Use askQuestion to get the content related to the 'partie'
+             
             context = askQuestion(token, "Quel est le contenu de la partie " + partie + " ?", title, embedding);
 
             // Check if askQuestion says no info
             if (context == null || context.trim().isEmpty() || context.equalsIgnoreCase("Aucune information trouvée dans le PDF.")) {
-                // If no info found for this partie, do not generate questions
+                
                 return "Aucune information trouvée pour la partie spécifiée, génération annulée.";
             }
         } else {
-            // If allPdf is true, get all content like before
+            
             Map<String, Object> getAllPayload = new HashMap<>();
             getAllPayload.put("email", normalizedEmail);
             getAllPayload.put("title", title);
@@ -125,7 +125,7 @@ public class ChatService {
             }
         }
 
-        // Now build the prompt for Groq with valid context
+         
         Map<String, Object> groqBody = new HashMap<>();
         groqBody.put("model", MODEL);
 

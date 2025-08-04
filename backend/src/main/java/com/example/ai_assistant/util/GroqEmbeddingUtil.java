@@ -21,7 +21,7 @@ public class GroqEmbeddingUtil {
             int hash = semanticDesc.hashCode();
             for (int i = 0; i < 384; i++) {
                 embedding[i] = (hash % 1000) / 1000f;
-                hash = hash * 31 + i; // Scramble
+                hash = hash * 31 + i;  
             }
             return embedding;
         } catch (Exception e) {
@@ -32,7 +32,7 @@ public class GroqEmbeddingUtil {
     private static float[] getRandomVector(int dim) {
         float[] v = new float[dim];
         for (int i = 0; i < dim; i++) {
-            v[i] = (float) (Math.random() * 2 - 1); // [-1, 1]
+            v[i] = (float) (Math.random() * 2 - 1);  
         }
         return v;
     }
